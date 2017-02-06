@@ -13,6 +13,7 @@ Install VirtualBox, Vagrant, Berkshelf and vagrant plugins:
 3. Install Berkshelf by installing the [ChefDK](https://downloads.chef.io/chef-dk/)
 4. Install vagrant-berkshelf plugin with: `$ vagrant plugin install vagrant-berkshelf`
 5. Install vagrant-hostmanager plugin with: `$ vagrant plugin install vagrant-hostmanager`
+6. Install vagrant-omnibus plugin with: `$ vagrant plugin install vagrant-omnibus`
 
 Clone this repository, then:
 
