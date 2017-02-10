@@ -70,6 +70,14 @@ python_pip "#{CKAN_DIR}/requirements.txt" do
   action :install
 end
 
+# Install CKAN Package req flask_debugger
+python_pip 'flask-debugtoolbar' do
+  user node[:ckan][:user]
+  group node[:ckan][:user]
+  virtualenv ENV['VIRTUAL_ENV']
+  action :install
+end
+
 # Create Postgres User and Database
 postgresql_user node[:ckan][:sql_user] do
   superuser true
@@ -117,6 +125,50 @@ execute "edit configuration file to setup database urls" do
   user node[:ckan][:user]
   cwd node[:ckan][:config_dir]
   command "sed -i -e 's/.*sqlalchemy.url.*/sqlalchemy.url=postgresql:\\/\\/#{node[:ckan][:sql_user]}:#{node[:ckan][:sql_password]}@localhost\\/#{node[:ckan][:sql_db_name]}/' development.ini"
+end
+
+# Install andP OSTGIS
+package 'postgresql-9.4-postgis-2.3' do
+  action :install
+end
+
+# Configure postgis ckan tables
+execute 'write the tables for postgis ckan' do
+  user 'root'
+  command "sudo -u postgres psql -d ckan_default -f /usr/share/postgresql/9.4/contrib/postgis-2.3/postgis.sql"
+end
+
+# Configure postgis populate spatial ref
+execute 'populate spatial ref table' do
+  user 'root'
+  command "sudo -u postgres psql -d ckan_default -f /usr/share/postgresql/9.4/contrib/postgis-2.3/spatial_ref_sys.sql"
+end
+
+# Configure postgis chnage owner
+execute 'change owners' do
+  user 'root'
+  command "sudo -u postgres psql -d ckan_default -c 'ALTER VIEW geometry_columns OWNER TO ckan_default;' && sudo -u postgres psql -d ckan_default -c 'ALTER TABLE spatial_ref_sys OWNER TO ckan_default;'"
+end
+
+# Install and python-dev
+package "python-dev" do
+  action :install
+end
+
+# Install and python-dev
+package "libxml2-dev" do
+  action :install
+end
+
+
+# Install and python-dev
+package "libxslt1-dev" do
+  action :install
+end
+
+# Install and python-dev
+package "libgeos-c1" do
+  action :install
 end
 
 # Install and configure Solr
@@ -174,3 +226,4 @@ execute "install less and nodewatch" do
   cwd "#{CKAN_DIR}"
   command "sudo npm install less@1.7.5 nodewatch"
 end
+
