@@ -1,0 +1,57 @@
+# Installs and configures the datastore extension
+# Must be run after ckan::ckan_base recipe.
+
+ENV['VIRTUAL_ENV'] = node[:ckan][:virtual_env_dir]
+ENV['PATH'] = "#{ENV['VIRTUAL_ENV']}/bin:#{ENV['PATH']}"
+SOURCE_DIR = "#{ENV['VIRTUAL_ENV']}/src"
+CKAN_DIR = "#{SOURCE_DIR}/ckan"
+CKAN_CONFIG_DIR = node[:ckan][:config_dir]
+
+
+
+node.ckan.extensions.each{ |extension|
+
+  if extension == 'spatial'
+    ##################### SPATIAL #####################
+
+    clone("#{SOURCE_DIR}/ckanext-spatial",node[:ckan][:user],node[:ckan][:spatial][:url],node[:ckan][:spatial][:commit])
+
+    # Add spatial_metadata to ckan.plugins
+    replace_or_add 'add spatial to plugins list' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*ckan.plugins*.'
+      line 'ckan.plugins = stats text_view image_view recline_view datastore spatial_metadata spatial_query'
+    end
+    replace_or_add 'pyparsing' do
+      path "#{SOURCE_DIR}/ckanext-spatial/pip-requirements.txt"
+      pattern '.*pyparsing*.'
+      line ''
+    end
+
+    pip_requirements("#{SOURCE_DIR}/ckanext-spatial/pip-requirements.txt",node[:ckan][:user],node[:ckan][:virtual_env_dir])
+    pip_install("#{SOURCE_DIR}/ckanext-spatial",node[:ckan][:user],node[:ckan][:virtual_env_dir])
+
+  elsif extension == 'geoview'
+  ##################### geoview #####################
+
+  clone("#{SOURCE_DIR}/ckanext-geoview", node[:ckan][:user], "https://github.com/ckan/ckanext-geoview.git", "master")
+  pip_requirements("#{SOURCE_DIR}/ckanext-geoview/pip-requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+  pip_install("#{SOURCE_DIR}/ckanext-geoview", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
+  add_to_list 'add geoview to plugins list' do
+    path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+    pattern 'ckan.plugins ='
+    delim [' ']
+    entry 'geo_view'
+  end
+
+  add_to_list 'add geo_view to views list' do
+    path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+    pattern 'ckan.views.default_views ='
+    delim [' ']
+    entry 'geo_view'
+  end
+
+end
+
+}

@@ -9,6 +9,8 @@ default[:ckan][:sql_user] = "ckan_#{default[:ckan][:project_name]}"
 default[:ckan][:sql_db_name] = "ckan_#{default[:ckan][:project_name]}"
 default[:ckan][:virtual_env_dir] = "/usr/lib/ckan/#{default[:ckan][:project_name]}"
 default[:ckan][:config_dir] = "/etc/ckan/#{default[:ckan][:project_name]}"
+default[:ckan][:config] = "development.ini"
+
 default[:ckan][:file_storage_dir] = "/var/lib/ckan/#{default[:ckan][:project_name]}"
 
 
@@ -17,7 +19,7 @@ default[:ckan][:datastore][:sql_db_name] = "datastore_#{default[:ckan][:project_
 
 default[:ckan][:extensions] = %w{spatial geoview montheme}
 default[:ckan][:spatial][:url] = "https://github.com/ckan/ckanext-spatial.git"
-
+default[:ckan][:spatial][:commit] = "master"
 # The CKAN version to install.
 default[:repository][:url] = "https://github.com/ckan/ckan.git"
 default[:repository][:commit] = "master"
