@@ -11,9 +11,9 @@ recipe "ckan::ckan_production", "Installs dependencies used for a production ins
 recipe "ckan::ckan_tests", "Runs ckan tests."
 
 depends "git"
+depends "line"
 depends "python"
 depends "postgresql"
-#depends "postgis"
 depends "runit"
 depends "redis"
 depends "java"
