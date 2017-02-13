@@ -12,5 +12,5 @@ include_recipe "ckan::ckan_base"
 include_recipe "ckan::ckan_datastore"
 include_recipe "ckan::ckan_ext"
 
-# include_recipe "ckan::ckan_production"
+#include_recipe "ckan::ckan_production"
 # include_recipe "ckan::ckan_tests" # uncomment to set up tests

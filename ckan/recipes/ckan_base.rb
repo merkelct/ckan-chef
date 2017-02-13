@@ -112,6 +112,15 @@ file "#{node[:ckan][:config_dir]}/development.ini" do
   action :create
 end
 
+replace_or_add 'root url for INI' do
+  path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+  pattern 'port = 5000*'
+  line 'port = 5000
+[composite:nonroot]
+use = egg:Paste#urlmap
+/frontdoor = main'
+end
+
 # Edit configuration file
 # solr_url and ckan.site_id
 execute "edit configuration file to setup ckan.site_url and ckan.site_id" do

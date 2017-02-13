@@ -51,7 +51,18 @@ node.ckan.extensions.each{ |extension|
     delim [' ']
     entry 'geo_view'
   end
+  elsif extension == 'monsanto'
+    ##################### monsanto theme #####################
+    #not cloning from Monsanto source for local dev will have to put all changes back into Monsanto Private repo
+    #clone("#{SOURCE_DIR}/ckanext-monsanto", node[:ckan][:user], "https://#{gdc_git_password}:x-oauth-basic@github.com/MonsantoCo/ckanext-monsanto.git", node[:monsanto][:commit])
+    pip_install("#{SOURCE_DIR}/ckanext-monsanto", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
+    add_to_list 'add montheme to plugins list' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern 'ckan.plugins ='
+      delim [' ']
+      entry 'montheme'
+    end
 end
 
 }

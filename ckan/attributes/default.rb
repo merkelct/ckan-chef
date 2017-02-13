@@ -2,7 +2,7 @@
 # synced_folders have correct permissions
 default[:ckan][:user] = "vagrant"
 default[:ckan][:project_name] = "default"
-default[:ckan][:site_url] = "http://default.ckanhosted.dev"
+default[:ckan][:site_url] = "http://default.ckanhosted.dev/frontdoor"
 default[:ckan][:solr_url] = "http://127.0.0.1:8983/solr"
 default[:ckan][:sql_password] = "pass"
 default[:ckan][:sql_user] = "ckan_#{default[:ckan][:project_name]}"
@@ -17,13 +17,15 @@ default[:ckan][:file_storage_dir] = "/var/lib/ckan/#{default[:ckan][:project_nam
 default[:ckan][:datastore][:sql_user] = "datastore_#{default[:ckan][:project_name]}"  # readonly db user
 default[:ckan][:datastore][:sql_db_name] = "datastore_#{default[:ckan][:project_name]}"
 
-default[:ckan][:extensions] = %w{spatial geoview montheme}
+#extensions
+default[:ckan][:extensions] = %w{spatial geoview monsanto}
+#spatial repo and commit
 default[:ckan][:spatial][:url] = "https://github.com/ckan/ckanext-spatial.git"
 default[:ckan][:spatial][:commit] = "master"
 # The CKAN version to install.
 default[:repository][:url] = "https://github.com/ckan/ckan.git"
-default[:repository][:commit] = "master"
+default[:repository][:commit] = "ckan-2.5.3"
 
 # Apache config for production
-default[:apache][:server_name] = "default.ckanhosted.dev"
-default[:apache][:server_alias] = "www.default.ckanhosted.dev"
+default[:apache][:server_name] = "default.ckanhosted.dev/frontdoor"
+default[:apache][:server_alias] = "www.default.ckanhosted.dev/frontdoor"
