@@ -121,6 +121,13 @@ use = egg:Paste#urlmap
 /frontdoor = main'
 end
 
+replace_or_add 'ckan tracking enable' do
+  path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+  pattern 'beaker.session.key = ckan*'
+  line 'beaker.session.key = ckan
+ckan.tracking_enabled = true'
+end
+
 # Edit configuration file
 # solr_url and ckan.site_id
 execute "edit configuration file to setup ckan.site_url and ckan.site_id" do

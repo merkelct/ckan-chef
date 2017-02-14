@@ -36,7 +36,12 @@ into the sync_folders/src dir then run
 
 paster serve --reload -n nonroot /etc/ckan/default/development.ini
 
-this will run not under root
+this will run not under root it will run under /frontdoor
+
+you can then create test search data by running
+
+`paster create-test-data search -c /etc/ckan/default/development.ini`
+
 
 
 View CKAN in your browser at `http://localhost:5000`.
