@@ -32,6 +32,13 @@ $ cd /usr/lib/ckan/default/src/ckan
 $ source ../../bin/activate
 $ paster serve /etc/ckan/default/development.ini
 ```
+to get the monsanto theme you will have to git clone https://github.com/MonsantoCo/ckanext-monsanto.git 
+into the sync_folders/src dir then run 
+
+paster serve --reload -n nonroot /etc/ckan/default/development.ini
+
+this will run not under root
+
 
 View CKAN in your browser at `http://localhost:5000`.
 

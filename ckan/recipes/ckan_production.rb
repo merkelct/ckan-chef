@@ -44,6 +44,7 @@ execute "disable default apache site" do
     command "sudo a2dissite default"
 end
 
+=begin
 # Install and configure Nginx
 package "nginx" do
     action :install
@@ -59,6 +60,7 @@ link "/etc/nginx/sites-enabled/ckan_#{node[:ckan][:project_name]}" do
   to "/etc/nginx/sites-available/ckan_#{node[:ckan][:project_name]}"
   action :create
 end
+=end
 
 package "postfix" do
     action :install
