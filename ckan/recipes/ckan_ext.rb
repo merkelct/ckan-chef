@@ -65,4 +65,20 @@ node.ckan.extensions.each{ |extension|
     end
 end
 
+
 }
+
+cron 'update tracker' do
+  action :create
+  user 'vagrant'
+  hour '*'
+  home '/home/vagrant'
+  command " /usr/lib/ckan/default/bin/paster --plugin=ckan tracking update -c /etc/ckan/default/development.ini && /usr/lib/ckan/default/bin/paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/develpment.ini"
+end
+
+##add line to debug=true in the ini'##
+replace_or_add 'pyparsing' do
+  path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+  pattern '.*ckan.tracking_enabled*.'
+  line 'ckan.tracking_enabled = true'
+end
