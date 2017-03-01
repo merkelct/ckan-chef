@@ -63,6 +63,23 @@ node.ckan.extensions.each{ |extension|
       delim [' ']
       entry 'montheme'
     end
+  elsif extension == 'pages'
+    ##################### frontpage monsanto theme #####################
+
+    clone("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], "https://github.com/merkelct/ckanext-frontpage.git", "master"
+    pip_install("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
+    add_to_list 'add montheme to plugins list' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern 'ckan.plugins ='
+      delim [' ']
+      entry 'pages'
+    end
+    replace_or_add 'add editor style' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*ckan.pages.*.'
+      line 'ckanext.pages.editor = ckeditor'
+    end
 end
 
 
@@ -77,7 +94,7 @@ cron 'update tracker' do
 end
 
 ##add line to debug=true in the ini'##
-replace_or_add 'pyparsing' do
+replace_or_add 'debug line for dev' do
   path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
   pattern '.*debug*.'
   line 'debug = true'

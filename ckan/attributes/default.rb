@@ -18,7 +18,7 @@ default[:ckan][:datastore][:sql_user] = "datastore_#{default[:ckan][:project_nam
 default[:ckan][:datastore][:sql_db_name] = "datastore_#{default[:ckan][:project_name]}"
 
 #extensions
-default[:ckan][:extensions] = %w{spatial geoview monsanto}
+default[:ckan][:extensions] = %w{spatial geoview monsanto pages}
 #spatial repo and commit
 default[:ckan][:spatial][:url] = "https://github.com/ckan/ckanext-spatial.git"
 default[:ckan][:spatial][:commit] = "master"
