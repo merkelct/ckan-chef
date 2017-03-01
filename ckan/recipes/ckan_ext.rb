@@ -79,6 +79,6 @@ end
 ##add line to debug=true in the ini'##
 replace_or_add 'pyparsing' do
   path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
-  pattern '.*ckan.tracking_enabled*.'
-  line 'ckan.tracking_enabled = true'
+  pattern '.*debug*.'
+  line 'debug = true'
 end
