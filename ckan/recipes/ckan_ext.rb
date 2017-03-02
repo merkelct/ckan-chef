@@ -63,22 +63,21 @@ node.ckan.extensions.each{ |extension|
       delim [' ']
       entry 'montheme'
     end
-  elsif extension == 'pages'
-    ##################### frontpage monsanto theme #####################
-
-    clone("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], "https://github.com/merkelct/ckanext-frontpage.git", "master")
+  elsif extension == 'frontpage'
+    ##################### frontpage monsanto  #####################
+    clone("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], "https://github.com/merkelct/ckanext-frontpage.git", "master"
     pip_install("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
     add_to_list 'add montheme to plugins list' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
       pattern 'ckan.plugins ='
       delim [' ']
-      entry 'pages'
+      entry 'frontpage'
     end
     replace_or_add 'add editor style' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
-      pattern '.*ckan.pages.*.'
-      line 'ckanext.pages.editor = ckeditor'
+      pattern '.*ckan.frontpage.*.'
+      line 'ckanext.frontpage.editor = ckeditor'
     end
 end
 
