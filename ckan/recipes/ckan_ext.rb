@@ -65,7 +65,7 @@ node.ckan.extensions.each{ |extension|
     end
   elsif extension == 'frontpage'
     ##################### frontpage monsanto  #####################
-    clone("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], "https://github.com/merkelct/ckanext-frontpage.git", "master"
+    clone("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], "https://github.com/merkelct/ckanext-frontpage.git", "master")
     pip_install("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
     add_to_list 'add montheme to plugins list' do
