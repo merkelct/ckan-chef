@@ -14,6 +14,7 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = 'default.ckanhosted.dev'
   config.vm.network :private_network, ip: '192.168.42.42'
 
+  config.vm.network "forwarded_port", guest: 5432, host: 5432
   config.vm.network "forwarded_port", guest: 8983, host: 8983
   config.vm.network "forwarded_port", guest: 5000, host: 5000  # paster server (development)
   config.omnibus.chef_version = '12.10.24'

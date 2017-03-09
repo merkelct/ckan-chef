@@ -18,13 +18,13 @@ default[:ckan][:datastore][:sql_user] = "datastore_#{default[:ckan][:project_nam
 default[:ckan][:datastore][:sql_db_name] = "datastore_#{default[:ckan][:project_name]}"
 
 #extensions
-default[:ckan][:extensions] = %w{spatial geoview monsanto pages}
+default[:ckan][:extensions] = %w{spatial geoview monsanto frontpage}
 #spatial repo and commit
 default[:ckan][:spatial][:url] = "https://github.com/ckan/ckanext-spatial.git"
 default[:ckan][:spatial][:commit] = "master"
 # The CKAN version to install.
 default[:repository][:url] = "https://github.com/ckan/ckan.git"
-default[:repository][:commit] = "ckan-2.5.3"
+default[:repository][:commit] = "ckan-2.5.4"
 
 # Apache config for production
 default[:apache][:server_name] = "default.ckanhosted.dev/frontdoor"

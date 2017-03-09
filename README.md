@@ -35,13 +35,22 @@ $ paster serve /etc/ckan/default/development.ini
 to get the monsanto theme you will have to git clone https://github.com/MonsantoCo/ckanext-monsanto.git 
 into the sync_folders/src dir then run 
 
-paster serve --reload -n nonroot /etc/ckan/default/development.ini
+`paster serve --reload -n nonroot /etc/ckan/default/development.ini`
 
 this will run not under root it will run under /frontdoor
 
 you can then create test search data by running
 
 `paster create-test-data search -c /etc/ckan/default/development.ini`
+
+you need to add a sysadmin user 
+
+`paster sysadmin add <username> -c /etc/ckan/default/development.ini`
+
+you aslo need to add a general user 
+
+`paster user add <username> -c /etc/ckan/default/development.ini`
+
 
 
 

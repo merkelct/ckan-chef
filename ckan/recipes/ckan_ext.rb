@@ -17,11 +17,13 @@ node.ckan.extensions.each{ |extension|
     clone("#{SOURCE_DIR}/ckanext-spatial",node[:ckan][:user],node[:ckan][:spatial][:url],node[:ckan][:spatial][:commit])
 
     # Add spatial_metadata to ckan.plugins
-    replace_or_add 'add spatial to plugins list' do
+    add_to_list 'add geoview to plugins list' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
-      pattern '.*ckan.plugins*.'
-      line 'ckan.plugins = stats text_view image_view recline_view datastore spatial_metadata spatial_query'
+      pattern 'ckan.plugins ='
+      delim [' ']
+      entry 'spatial_metadata spatial_query'
     end
+
     replace_or_add 'pyparsing' do
       path "#{SOURCE_DIR}/ckanext-spatial/pip-requirements.txt"
       pattern '.*pyparsing*.'
@@ -76,8 +78,13 @@ node.ckan.extensions.each{ |extension|
     end
     replace_or_add 'add editor style' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
-      pattern '.*ckan.frontpage.*.'
+      pattern '.*ckan.frontpage.editor*.'
       line 'ckanext.frontpage.editor = ckeditor'
+    end
+    replace_or_add 'add html style' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*ckan.frontpage..allow_html*.'
+      line 'ckanext.frontpage..allow_html = True'
     end
 end
 
