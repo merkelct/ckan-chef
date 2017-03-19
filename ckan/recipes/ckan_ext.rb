@@ -78,13 +78,15 @@ node.ckan.extensions.each{ |extension|
     end
     replace_or_add 'add editor style' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
-      pattern '.*ckan.frontpage.editor*.'
-      line 'ckanext.frontpage.editor = ckeditor'
+      pattern '.*ckan.tracking_enabled = true*.'
+      line 'ckan.tracking_enabled = true
+ckanext.frontpage.editor = ckeditor'
     end
     replace_or_add 'add html style' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
-      pattern '.*ckan.frontpage..allow_html*.'
-      line 'ckanext.frontpage..allow_html = True'
+      pattern '.*ckan.tracking_enabled = true*.'
+      line 'ckan.tracking_enabled = true
+ckanext.frontpage.allow_html = True'
     end
 end
 
@@ -104,4 +106,18 @@ replace_or_add 'debug line for dev' do
   path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
   pattern '.*debug*.'
   line 'debug = true'
+end
+
+##add listen to postgresql.conf'##
+replace_or_add 'listen line for postgres' do
+  path "/etc/postgresql/9.4/main/postgresql.conf"
+  pattern '.*listen_addresses*.'
+  line 'listen_addresses = "*"'
+end
+
+##add listen to postgresql.conf'##
+replace_or_add 'update hosts on pgs' do
+  path "/etc/postgresql/9.4/main/pg_hba.conf"
+  pattern '.*host    all       all   0.0.0.0/0     md5*.'
+  line 'host    all       all   0.0.0.0/0     md5'
 end
