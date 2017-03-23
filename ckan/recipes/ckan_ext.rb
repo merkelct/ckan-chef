@@ -88,6 +88,33 @@ ckanext.frontpage.editor = ckeditor'
       line 'ckan.tracking_enabled = true
 ckanext.frontpage.allow_html = True'
     end
+  elsif extension == 'harvester'
+    ##################### harvester monsanto  #####################
+    clone("#{SOURCE_DIR}/ckanext-harvest", node[:ckan][:user], "https://github.com/ckan/ckanext-harvest.git", "v0.0.5")
+    pip_requirements("#{SOURCE_DIR}/ckanext-harvest/pip-requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+    pip_install("#{SOURCE_DIR}/ckanext-harvest", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
+    add_to_list 'add montheme to plugins list' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern 'ckan.plugins ='
+      delim [' ']
+      entry 'harvest ckan_harvester'
+    end
+    replace_or_add 'redis info' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*## Site Settings*.'
+      line 'ckan.harvest.mq.type = redis
+ckan.harvest.mq.hostname = localhost
+ckan.harvest.mq.port = 6379
+ckan.harvest.mq.redis_db = 0
+## Site Settings'
+    end
+    # Create database tables
+    execute "create database tables" do
+      user node[:ckan][:user]
+      cwd CKAN_DIR
+      command "paster --plugin=ckanext-harvest harvester initdb -c #{node[:ckan][:config_dir]}/development.ini"
+    end
 end
 
 
@@ -98,7 +125,15 @@ cron 'update tracker' do
   user 'vagrant'
   hour '*'
   home '/home/vagrant'
-  command " /usr/lib/ckan/default/bin/paster --plugin=ckan tracking update -c /etc/ckan/default/development.ini && /usr/lib/ckan/default/bin/paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/develpment.ini"
+  command "/usr/lib/ckan/default/bin/paster --plugin=ckan tracking update -c /etc/ckan/default/development.ini && /usr/lib/ckan/default/bin/paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/development.ini"
+end
+
+cron 'update overall tracker' do
+  action :create
+  user 'vagrant'
+  hour '*'
+  home '/home/vagrant'
+  command "/usr/lib/ckan/default/bin/paster --plugin=ckan tracking export /usr/lib/ckan/default/src/pagewiecount30day.csv 2017-01-01 -c /etc/ckan/default/development.ini"
 end
 
 ##add line to debug=true in the ini'##
@@ -108,14 +143,15 @@ replace_or_add 'debug line for dev' do
   line 'debug = true'
 end
 
+
 ##add listen to postgresql.conf'##
 replace_or_add 'listen line for postgres' do
   path "/etc/postgresql/9.4/main/postgresql.conf"
   pattern '.*listen_addresses*.'
-  line 'listen_addresses = "*"'
+  line "listen_addresses = '*'"
 end
 
-##add listen to postgresql.conf'##
+##add hosts to pg_hba.conf'##
 replace_or_add 'update hosts on pgs' do
   path "/etc/postgresql/9.4/main/pg_hba.conf"
   pattern '.*host    all       all   0.0.0.0/0     md5*.'
