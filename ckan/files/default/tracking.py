@@ -60,10 +60,13 @@ def update_csv_total():
             # print(row['total views'])
             total.append(row['total views'])
 
-        results = map(int, total)
+    results = map(int, total)
+    with open('/usr/lib/ckan/default/src/tracking_total.csv', 'w+b') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames = ["Total", "Count"])
+        writer.writeheader()
 
         twriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        twriter.writerow(['TOTAL_VIEWS', 'TOTAL_VIEWS', sum(results), sum(results)])
+        twriter.writerow(['TOTAL_VIEWS', sum(results)])
 
 if __name__ == '__main__':
 
