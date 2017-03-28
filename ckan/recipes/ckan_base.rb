@@ -176,6 +176,13 @@ package "libxml2-dev" do
   action :install
 end
 
+#move file
+cookbook_file "#{SOURCE_DIR}/tracking.py" do
+  source 'tracking.py'
+  user "vagrant"
+  group "vagrant"
+  mode '0644'
+end
 
 # Install and python-dev
 package "libxslt1-dev" do

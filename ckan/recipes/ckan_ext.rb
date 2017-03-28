@@ -124,6 +124,7 @@ cron 'update tracker' do
   action :create
   user 'vagrant'
   hour '*'
+  minute '0'
   home '/home/vagrant'
   command "/usr/lib/ckan/default/bin/paster --plugin=ckan tracking update -c /etc/ckan/default/development.ini && /usr/lib/ckan/default/bin/paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/development.ini"
 end
@@ -132,6 +133,7 @@ cron 'update overall tracker' do
   action :create
   user 'vagrant'
   hour '*'
+  minute '0'
   home '/home/vagrant'
   command "/usr/lib/ckan/default/bin/paster --plugin=ckan tracking export /usr/lib/ckan/default/src/pagewiecount30day.csv 2017-01-01 -c /etc/ckan/default/development.ini"
 end
