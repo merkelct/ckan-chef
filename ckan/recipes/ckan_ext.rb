@@ -90,7 +90,7 @@ ckanext.frontpage.allow_html = True'
     end
   elsif extension == 'harvester'
     ##################### harvester monsanto  #####################
-    clone("#{SOURCE_DIR}/ckanext-harvest", node[:ckan][:user], "https://github.com/ckan/ckanext-harvest.git", "v0.0.5")
+    clone("#{SOURCE_DIR}/ckanext-harvest", node[:ckan][:user], "https://github.com/merkelct/ckanext-harvest.git", "master")
     pip_requirements("#{SOURCE_DIR}/ckanext-harvest/pip-requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
     pip_install("#{SOURCE_DIR}/ckanext-harvest", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
