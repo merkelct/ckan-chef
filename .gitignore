@@ -25,5 +25,6 @@ bin/*
 synced_folders/*
 synced_folders/*
 synced_folders/*
+ckan/config.json
 # Except this .gitkeep file
 !synced_folders/.gitkeep

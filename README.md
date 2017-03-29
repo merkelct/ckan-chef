@@ -17,6 +17,14 @@ Install VirtualBox, Vagrant, Berkshelf and vagrant plugins:
 
 Clone this repository, then:
 
+### Update config_sample.json to config.json in /ckan
+
+This is to check out the proper private repos.
+```
+{"egit": "<YOUR TOKEN HERE>",
+  "git": "<YOUR TOKEN HERE>"}
+```
+
 ### For Development
 
 `$ vagrant up`

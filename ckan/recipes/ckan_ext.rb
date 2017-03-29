@@ -7,7 +7,8 @@ SOURCE_DIR = "#{ENV['VIRTUAL_ENV']}/src"
 CKAN_DIR = "#{SOURCE_DIR}/ckan"
 CKAN_CONFIG_DIR = node[:ckan][:config_dir]
 
-
+EGIT_TOKEN = node[:egit]
+GIT_TOKEN = node[:git]
 
 node.ckan.extensions.each{ |extension|
 
@@ -55,8 +56,7 @@ node.ckan.extensions.each{ |extension|
   end
   elsif extension == 'monsanto'
     ##################### monsanto theme #####################
-    #not cloning from Monsanto source for local dev will have to put all changes back into Monsanto Private repo
-    #clone("#{SOURCE_DIR}/ckanext-monsanto", node[:ckan][:user], "https://#{gdc_git_password}:x-oauth-basic@github.com/MonsantoCo/ckanext-monsanto.git", node[:monsanto][:commit])
+    clone("#{SOURCE_DIR}/ckanext-monsanto", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/MonsantoCo/ckanext-monsanto.git", 'mont02')
     pip_install("#{SOURCE_DIR}/ckanext-monsanto", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
     add_to_list 'add montheme to plugins list' do
@@ -67,7 +67,7 @@ node.ckan.extensions.each{ |extension|
     end
   elsif extension == 'frontpage'
     ##################### frontpage monsanto  #####################
-    clone("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], "https://github.com/merkelct/ckanext-frontpage.git", "master")
+    clone("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-frontpage.git", "master")
     pip_install("#{SOURCE_DIR}/ckanext-frontpage", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
     add_to_list 'add montheme to plugins list' do
@@ -90,7 +90,7 @@ ckanext.frontpage.allow_html = True'
     end
   elsif extension == 'harvester'
     ##################### harvester monsanto  #####################
-    clone("#{SOURCE_DIR}/ckanext-harvest", node[:ckan][:user], "https://github.com/merkelct/ckanext-harvest.git", "master")
+    clone("#{SOURCE_DIR}/ckanext-harvest", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-harvest.git", "master")
     pip_requirements("#{SOURCE_DIR}/ckanext-harvest/pip-requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
     pip_install("#{SOURCE_DIR}/ckanext-harvest", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 

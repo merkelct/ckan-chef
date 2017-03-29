@@ -11,6 +11,9 @@ ESCAPED_SITE_URL = node[:ckan][:site_url].gsub('/','\\/')
 ESCAPED_SOLR_URL = node[:ckan][:solr_url].gsub('/','\\/')
 ESCAPED_STORAGE_PATH = node[:ckan][:file_storage_dir].gsub('/','\\/')
 
+EGIT_TOKEN = node[:egit]
+GIT_TOKEN = node[:git]
+
 # Create user
 user node[:ckan][:user] do
   home "/home/#{node[:ckan][:user]}"
@@ -53,6 +56,8 @@ git CKAN_DIR do
 end
 
 # Install CKAN Package
+clone("#{CKAN_DIR}", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@#{node[:ckan][:repository][:url]}", node[:ckan][:version])
+
 python_pip CKAN_DIR do
   user node[:ckan][:user]
   group node[:ckan][:user]
