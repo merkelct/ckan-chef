@@ -42,6 +42,9 @@ Vagrant.configure(2) do |config|
                           mount_options: ["dmode=775","fmode=664"],
                           create: true
 
+  config.vm.provision "shell", inline: 'echo ". /usr/lib/ckan/default/bin/activate" > ~/.profile', privileged: false
+  config.vm.provision "shell", inline: 'echo "cd /usr/lib/ckan/default/src/ckan" >> ~/.profile', privileged: false
+
   config.vm.provision :chef_solo do |chef|
     chef.run_list = [
       "recipe[ckan::default]",
