@@ -16,12 +16,12 @@ bin_dir = '/usr/lib/ckan/default/bin/'
 
 
 def update_tracking():
-    subprocess.Popen('./paster --plugin=ckan tracking update -c /etc/ckan/default/production.ini', shell=True, cwd=bin_dir)
-    subprocess.Popen('./paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/production.ini', shell=True, cwd=bin_dir)
+    subprocess.Popen('./paster --plugin=ckan tracking update -c /etc/ckan/default/development.ini', shell=True, cwd=bin_dir)
+    subprocess.Popen('./paster --plugin=ckan search-index rebuild -r -c /etc/ckan/default/development.ini', shell=True, cwd=bin_dir)
 
 def export_tracking():
     paste =  subprocess.Popen('./paster --plugin=ckan tracking export /usr/lib/ckan/default/src/tracking.csv '
-                              + d30f_paster + ' -c /etc/ckan/default/production.ini', shell=True, cwd=bin_dir)
+                              + d30f_paster + ' -c /etc/ckan/default/development.ini', shell=True, cwd=bin_dir)
     paste.wait()
     print paste.returncode
     get_api_tracking()
