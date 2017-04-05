@@ -115,6 +115,17 @@ ckan.harvest.mq.redis_db = 0
       cwd CKAN_DIR
       command "paster --plugin=ckanext-harvest harvester initdb -c #{node[:ckan][:config_dir]}/development.ini"
     end
+  elsif extension == 'akana_harvester'
+    ##################### harvester monsanto  #####################
+    clone("#{SOURCE_DIR}/ckanext-akanaharvester", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-akanaharvester.git", "master")
+    pip_install("#{SOURCE_DIR}/ckanext-akanaharvester", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
+    add_to_list 'add akanaharvester to plugins list' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern 'ckan.plugins ='
+      delim [' ']
+      entry 'akanaharvester akana_harvester'
+    end
 end
 
 

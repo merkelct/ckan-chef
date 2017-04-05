@@ -45,16 +45,6 @@ directory SOURCE_DIR do
   action :create
 end
 
-# Clone CKAN into source directory
-git CKAN_DIR do
-  user node[:ckan][:user]
-  group node[:ckan][:user]
-  repository node[:repository][:url]
-  reference node[:repository][:commit]
-  enable_submodules true
-  action :sync
-end
-
 # Install CKAN Package
 clone("#{CKAN_DIR}", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@#{node[:ckan][:repository][:url]}", node[:ckan][:version])
 
