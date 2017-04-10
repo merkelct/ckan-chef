@@ -126,6 +126,17 @@ ckan.harvest.mq.redis_db = 0
       delim [' ']
       entry 'akanaharvester akana_harvester'
     end
+  elsif extension == 'yammer'
+    ##################### yammer monsanto  #####################
+    clone("#{SOURCE_DIR}/ckanext-yammer", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-yammer.git", "master")
+    pip_install("#{SOURCE_DIR}/ckanext-yammer", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
+    add_to_list 'add yammer to plugins list' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern 'ckan.plugins ='
+      delim [' ']
+      entry 'yammer'
+    end
 end
 
 
