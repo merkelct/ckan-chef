@@ -181,3 +181,10 @@ replace_or_add 'update hosts on pgs' do
   pattern '.*host    all       all   0.0.0.0/0     md5*.'
   line 'host    all       all   0.0.0.0/0     md5'
 end
+
+# restart post to update configs
+execute "mestart postgis" do
+  user 'root'
+  cwd '~'
+  command "service postgresql restart"
+end
