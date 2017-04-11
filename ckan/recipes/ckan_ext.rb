@@ -185,6 +185,5 @@ end
 # restart post to update configs
 execute "mestart postgis" do
   user 'root'
-  cwd '~'
   command "service postgresql restart"
 end
