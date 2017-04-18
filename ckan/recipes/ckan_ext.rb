@@ -9,7 +9,7 @@ CKAN_CONFIG_DIR = node[:ckan][:config_dir]
 
 EGIT_TOKEN = node[:egit]
 GIT_TOKEN = node[:git]
-
+YAMMERID = node[:yammerid]
 node.ckan.extensions.each{ |extension|
 
   if extension == 'spatial'
@@ -136,6 +136,12 @@ ckan.harvest.mq.redis_db = 0
       pattern 'ckan.plugins ='
       delim [' ']
       entry 'yammer'
+    end
+    replace_or_add 'yammer ID' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*## Site Settings*.'
+      line "ckan.yammer.id = #{YAMMERID}
+## Site Settings"
     end
 end
 

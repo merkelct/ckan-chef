@@ -7,6 +7,7 @@ data_hash = JSON.parse(file)
 
 default[:egit] = data_hash['egit']
 default[:git] = data_hash['git']
+default[:yammerid] = data_hash['yammerid']
 
 default[:ckan][:user] = "vagrant"
 default[:ckan][:project_name] = "default"
