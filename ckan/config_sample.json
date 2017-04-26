@@ -1,3 +1,6 @@
 {"egit": "<YOUR TOKEN HERE>",
   "git": "<YOUR TOKEN HERE>",
-  "yammerid": ""}}
+  "yammerid": "",
+  "harvester_clientid": "",
+  "harvester_secret": ""
+}

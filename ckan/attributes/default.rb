@@ -8,6 +8,8 @@ data_hash = JSON.parse(file)
 default[:egit] = data_hash['egit']
 default[:git] = data_hash['git']
 default[:yammerid] = data_hash['yammerid']
+default[:harvester_clientid] = data_hash['harvester_clientid']
+default[:harvester_secret] = data_hash['harvester_secret']
 
 default[:ckan][:user] = "vagrant"
 default[:ckan][:project_name] = "default"
@@ -29,7 +31,7 @@ default[:ckan][:datastore][:sql_user] = "datastore_#{default[:ckan][:project_nam
 default[:ckan][:datastore][:sql_db_name] = "datastore_#{default[:ckan][:project_name]}"
 
 #extensions
-default[:ckan][:extensions] = %w{spatial geoview monsanto frontpage harvester akana_harvester yammer}
+default[:ckan][:extensions] = %w{spatial geoview monsanto frontpage harvester akana_harvester yammer pingi}
 #spatial repo and commit
 default[:ckan][:spatial][:url] = "https://github.com/ckan/ckanext-spatial.git"
 default[:ckan][:spatial][:commit] = "master"

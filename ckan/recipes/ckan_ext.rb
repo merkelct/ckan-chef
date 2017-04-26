@@ -10,6 +10,9 @@ CKAN_CONFIG_DIR = node[:ckan][:config_dir]
 EGIT_TOKEN = node[:egit]
 GIT_TOKEN = node[:git]
 YAMMERID = node[:yammerid]
+HARVESTERID = node[:harvester_clientid]
+HARVESTERSECRET = node[:harvester_secret]
+
 node.ckan.extensions.each{ |extension|
 
   if extension == 'spatial'
@@ -141,6 +144,23 @@ ckan.harvest.mq.redis_db = 0
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
       pattern '.*## Site Settings*.'
       line "ckan.yammer.id = #{YAMMERID}
+## Site Settings"
+    end
+  elsif extension == 'pingi'
+    ##################### pingi monsanto  #####################
+    clone("#{SOURCE_DIR}/pingi", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/location-360/pingi.git", "python2.7")
+    pip_install("#{SOURCE_DIR}/pingi", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
+    replace_or_add 'Pingi ID' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*## Site Settings*.'
+      line "ckan.harvester.id = #{HARVESTERID}
+## Site Settings"
+    end
+    replace_or_add 'Pingi Sec' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*## Site Settings*.'
+      line "ckan.harvester.secret = #{HARVESTERSECRET}
 ## Site Settings"
     end
 end
