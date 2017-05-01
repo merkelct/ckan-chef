@@ -163,6 +163,17 @@ ckan.harvest.mq.redis_db = 0
       line "ckan.harvester.secret = #{HARVESTERSECRET}
 ## Site Settings"
     end
+  elsif extension == 'slack'
+    ##################### slack monsanto  #####################
+    clone("#{SOURCE_DIR}/ckanext-slack", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@hgithub.com/merkelct/ckanext-slack.git", "master")
+    pip_requirements("#{SOURCE_DIR}/ckanext-slack/requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
+    add_to_list 'add slack to plugins list' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern 'ckan.plugins ='
+      delim [' ']
+      entry 'slack'
+    end
 end
 
 
