@@ -165,7 +165,8 @@ ckan.harvest.mq.redis_db = 0
     end
   elsif extension == 'slack'
     ##################### slack monsanto  #####################
-    clone("#{SOURCE_DIR}/ckanext-slack", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@hgithub.com/merkelct/ckanext-slack.git", "master")
+    clone("#{SOURCE_DIR}/ckanext-slack", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-slack.git", "master")
+    pip_install("#{SOURCE_DIR}/ckanext-slack", node[:ckan][:user], node[:ckan][:virtual_env_dir])
     pip_requirements("#{SOURCE_DIR}/ckanext-slack/requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
     add_to_list 'add slack to plugins list' do
