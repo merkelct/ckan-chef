@@ -14,6 +14,8 @@ HARVESTERID = node[:harvester_clientid]
 HARVESTERSECRET = node[:harvester_secret]
 SLACKBOT_TOKEN = node[:slackbot_token]
 SLACKBOT_ID = node[:slackbot_id]
+HARVESTER_PINGI_ENV = node[:harvester_pingi_env]
+HARVESTER_PINGI_URL = node[:harvester_pingi_url]
 
 node.ckan.extensions.each{ |extension|
 
@@ -93,6 +95,20 @@ ckanext.frontpage.editor = ckeditor'
       line 'ckan.tracking_enabled = true
 ckanext.frontpage.allow_html = True'
     end
+  elsif extension == 'pingi'
+    ##################### pingi monsanto  #####################
+    clone("#{SOURCE_DIR}/pingi", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/location-360/pingi.git", "python2.7")
+    pip_install("#{SOURCE_DIR}/pingi", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
+    replace_or_add 'Pingi hjarvester info' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*## Site Settings*.'
+      line "ckan.harvester.id = #{HARVESTERID}
+ckan.harvester.secret = #{HARVESTERSECRET}
+ckan.harvester.pingi.env = #{HARVESTER_PINGI_ENV}
+ckan.harvester.pingi.url = #{HARVESTER_PINGI_URL}
+## Site Settings"
+    end
   elsif extension == 'akana_harvester'
     ##################### harvester monsanto  #####################
     clone("#{SOURCE_DIR}/ckanext-akanaharvester", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-akanaharvester.git", "master")
@@ -135,6 +151,8 @@ ckan.harvest.mq.redis_db = 0
     ##################### yammer monsanto  #####################
     clone("#{SOURCE_DIR}/ckanext-yammer", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-yammer.git", "master")
     pip_install("#{SOURCE_DIR}/ckanext-yammer", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+    pip_requirements("#{SOURCE_DIR}/ckanext-yammer/requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
 
     add_to_list 'add yammer to plugins list' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
@@ -146,23 +164,6 @@ ckan.harvest.mq.redis_db = 0
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
       pattern '.*## Site Settings*.'
       line "ckan.yammer.id = #{YAMMERID}
-## Site Settings"
-    end
-  elsif extension == 'pingi'
-    ##################### pingi monsanto  #####################
-    clone("#{SOURCE_DIR}/pingi", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/location-360/pingi.git", "python2.7")
-    pip_install("#{SOURCE_DIR}/pingi", node[:ckan][:user], node[:ckan][:virtual_env_dir])
-
-    replace_or_add 'Pingi ID' do
-      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
-      pattern '.*## Site Settings*.'
-      line "ckan.harvester.id = #{HARVESTERID}
-## Site Settings"
-    end
-    replace_or_add 'Pingi Sec' do
-      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
-      pattern '.*## Site Settings*.'
-      line "ckan.harvester.secret = #{HARVESTERSECRET}
 ## Site Settings"
     end
   elsif extension == 'slack'
@@ -230,7 +231,7 @@ replace_or_add 'update hosts on pgs' do
 end
 
 # restart post to update configs
-execute "mestart postgis" do
+execute "restart postgis" do
   user 'root'
   command "service postgresql restart"
 end

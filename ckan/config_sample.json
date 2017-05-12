@@ -3,6 +3,8 @@
   "yammerid": "",
   "harvester_clientid": "",
   "harvester_secret": "",
+  "harvester_pingi_env": "",
+  "harvester_pingi_url": "",
   "slackbot_token": "",
   "slackbot_id": ""
 }
