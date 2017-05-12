@@ -2,5 +2,7 @@
   "git": "<YOUR TOKEN HERE>",
   "yammerid": "",
   "harvester_clientid": "",
-  "harvester_secret": ""
+  "harvester_secret": "",
+  "slackbot_token": "",
+  "slackbot_id": ""
 }

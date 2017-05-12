@@ -12,6 +12,8 @@ GIT_TOKEN = node[:git]
 YAMMERID = node[:yammerid]
 HARVESTERID = node[:harvester_clientid]
 HARVESTERSECRET = node[:harvester_secret]
+SLACKBOT_TOKEN = node[:slackbot_token]
+SLACKBOT_ID = node[:slackbot_id]
 
 node.ckan.extensions.each{ |extension|
 
@@ -174,6 +176,13 @@ ckan.harvest.mq.redis_db = 0
       pattern 'ckan.plugins ='
       delim [' ']
       entry 'slack'
+    end
+    replace_or_add 'set config options for slack' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*## Site Settings*.'
+      line "ckan.slackbot_id = #{SLACKBOT_ID}
+ckan.slackbot_token = #{SLACKBOT_TOKEN}
+## Site Settings"
     end
 end
 

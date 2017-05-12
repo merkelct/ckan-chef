@@ -10,6 +10,8 @@ default[:git] = data_hash['git']
 default[:yammerid] = data_hash['yammerid']
 default[:harvester_clientid] = data_hash['harvester_clientid']
 default[:harvester_secret] = data_hash['harvester_secret']
+default[:slackbot_token] = data_hash['slackbot_token']
+default[:slackbot_id] = data_hash['slackbot_id']
 
 default[:ckan][:user] = "vagrant"
 default[:ckan][:project_name] = "default"
