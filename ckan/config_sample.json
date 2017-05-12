@@ -5,6 +5,7 @@
   "harvester_secret": "",
   "harvester_pingi_env": "",
   "harvester_pingi_url": "",
+  "harvester_akana_portal_url": "",
   "slackbot_token": "",
   "slackbot_id": ""
 }

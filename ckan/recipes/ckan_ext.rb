@@ -16,6 +16,8 @@ SLACKBOT_TOKEN = node[:slackbot_token]
 SLACKBOT_ID = node[:slackbot_id]
 HARVESTER_PINGI_ENV = node[:harvester_pingi_env]
 HARVESTER_PINGI_URL = node[:harvester_pingi_url]
+HARVESTER_AKANA_PORTAL_URL = node[:harvester_akana_portal_url]
+
 
 node.ckan.extensions.each{ |extension|
 
@@ -135,11 +137,12 @@ ckan.harvester.pingi.url = #{HARVESTER_PINGI_URL}
     replace_or_add 'redis info' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
       pattern '.*## Site Settings*.'
-      line 'ckan.harvest.mq.type = redis
+      line "ckan.harvest.mq.type = redis
 ckan.harvest.mq.hostname = localhost
 ckan.harvest.mq.port = 6379
 ckan.harvest.mq.redis_db = 0
-## Site Settings'
+ckan.harvester.akana.portal.url = #{HARVESTER_AKANA_PORTAL_URL}
+## Site Settings"
     end
     # Create database tables
     execute "create database tables" do

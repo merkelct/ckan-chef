@@ -12,6 +12,8 @@ default[:harvester_clientid] = data_hash['harvester_clientid']
 default[:harvester_secret] = data_hash['harvester_secret']
 default[:harvester_pingi_env] = data_hash['harvester_pingi_env']
 default[:harvester_pingi_url] = data_hash['harvester_pingi_url']
+default[:harvester_akana_portal_url] = data_hash['harvester_akana_portal_url']
+
 
 default[:slackbot_token] = data_hash['slackbot_token']
 default[:slackbot_id] = data_hash['slackbot_id']
