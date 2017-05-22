@@ -195,6 +195,10 @@ ckan.harvester.akana.portal.url = #{HARVESTER_AKANA_PORTAL_URL}
 ckan.slackbot_token = #{SLACKBOT_TOKEN}
 ## Site Settings"
     end
+  elsif extension == 'docs'
+    ##################### slack monsanto  #####################
+    clone("#{SOURCE_DIR}/docs", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/datacat.git", "ogsdocs")
+
 end
 
 
