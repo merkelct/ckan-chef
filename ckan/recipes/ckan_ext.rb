@@ -46,7 +46,7 @@ node.ckan.extensions.each{ |extension|
   elsif extension == 'geoview'
   ##################### geoview #####################
 
-  clone("#{SOURCE_DIR}/ckanext-geoview", node[:ckan][:user], "https://github.com/ckan/ckanext-geoview.git", "master")
+  clone("#{SOURCE_DIR}/ckanext-geoview", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-geoview.git", "master")
   pip_requirements("#{SOURCE_DIR}/ckanext-geoview/pip-requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
   pip_install("#{SOURCE_DIR}/ckanext-geoview", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
@@ -54,7 +54,7 @@ node.ckan.extensions.each{ |extension|
     path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
     pattern 'ckan.plugins ='
     delim [' ']
-    entry 'geo_view'
+    entry 'geo_view resource_proxy'
   end
 
   add_to_list 'add geo_view to views list' do
@@ -62,6 +62,13 @@ node.ckan.extensions.each{ |extension|
     pattern 'ckan.views.default_views ='
     delim [' ']
     entry 'geo_view'
+  end
+  replace_or_add 'geoview Mon configuration' do
+    path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+    pattern '.*## Site Settings*.'
+    line "ckan.geoview.oauth = false
+# ckan.geoview.oauth.urls =
+## Site Settings"
   end
   elsif extension == 'monsanto'
     ##################### monsanto theme #####################
