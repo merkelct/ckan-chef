@@ -17,6 +17,8 @@ SLACKBOT_ID = node[:slackbot_id]
 HARVESTER_PINGI_ENV = node[:harvester_pingi_env]
 HARVESTER_PINGI_URL = node[:harvester_pingi_url]
 HARVESTER_AKANA_PORTAL_URL = node[:harvester_akana_portal_url]
+HAYSTACK_API_URL = node[:haystack_api_url]
+HAYSTACK_WEB_URL = node[:haystack_web_url]
 
 
 node.ckan.extensions.each{ |extension|
@@ -198,8 +200,23 @@ ckan.slackbot_token = #{SLACKBOT_TOKEN}
   elsif extension == 'docs'
     ##################### slack monsanto  #####################
     clone("#{SOURCE_DIR}/docs", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/datacat.git", "ogsdocs")
-
-end
+  elsif extension == 'haystack'
+    ##################### slack monsanto  #####################
+    clone("#{SOURCE_DIR}/ckanext-haystack", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-haystack.git", "master")
+    add_to_list 'add haystack to plugins list' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern 'ckan.plugins ='
+      delim [' ']
+      entry 'haystack'
+    end
+    replace_or_add 'set config options for haystack' do
+      path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
+      pattern '.*## Site Settings*.'
+      line "ckan.haystack.api.url = #{HAYSTACK_API_URL}
+ckan.haystack.web.url = #{HAYSTACK_WEB_URL}
+## Site Settings"
+      end
+  end
 
 
 }

@@ -7,5 +7,7 @@
   "harvester_pingi_url": "",
   "harvester_akana_portal_url": "",
   "slackbot_token": "",
-  "slackbot_id": ""
+  "slackbot_id": "",
+  "haystack_api_url": "",
+  "haystack_web_url": ""
 }
