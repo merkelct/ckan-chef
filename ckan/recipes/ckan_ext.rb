@@ -203,6 +203,8 @@ ckan.slackbot_token = #{SLACKBOT_TOKEN}
   elsif extension == 'haystack'
     ##################### slack monsanto  #####################
     clone("#{SOURCE_DIR}/ckanext-haystack", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-haystack.git", "master")
+    pip_install("#{SOURCE_DIR}/ckanext-haystack", node[:ckan][:user], node[:ckan][:virtual_env_dir])
+
     add_to_list 'add haystack to plugins list' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
       pattern 'ckan.plugins ='
