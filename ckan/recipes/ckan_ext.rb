@@ -68,7 +68,8 @@ node.ckan.extensions.each{ |extension|
   replace_or_add 'geoview Mon configuration' do
     path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
     pattern '.*## Site Settings*.'
-    line "ckan.geoview.oauth = false
+    line "ckanext.geoview.ol_viewer.formats = wms kml geojson
+ckan.geoview.oauth = false
 # ckan.geoview.oauth.urls =
 ## Site Settings"
   end
@@ -214,8 +215,10 @@ ckan.slackbot_token = #{SLACKBOT_TOKEN}
     replace_or_add 'set config options for haystack' do
       path "#{node[:ckan][:config_dir]}/#{node[:ckan][:config]}"
       pattern '.*## Site Settings*.'
-      line "ckan.haystack.api.url = #{HAYSTACK_API_URL}
-ckan.haystack.web.url = #{HAYSTACK_WEB_URL}
+      line "ckanext.haystack.api.url = #{HAYSTACK_API_URL}
+ckanext.haystack.web.url = #{HAYSTACK_WEB_URL}
+ckanext.haystack.indexes = 0
+
 ## Site Settings"
       end
   end
