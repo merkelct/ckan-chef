@@ -217,7 +217,7 @@ ckan.slackbot_token = #{SLACKBOT_TOKEN}
       pattern '.*## Site Settings*.'
       line "ckanext.haystack.api.url = #{HAYSTACK_API_URL}
 ckanext.haystack.web.url = #{HAYSTACK_WEB_URL}
-ckanext.haystack.indexes = 0
+ckanext.haystack.namespaces = 0
 ckanext.haystack.maxpages = 20
 
 ## Site Settings"
