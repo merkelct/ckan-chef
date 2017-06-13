@@ -48,7 +48,7 @@ node.ckan.extensions.each{ |extension|
   elsif extension == 'geoview'
   ##################### geoview #####################
 
-  clone("#{SOURCE_DIR}/ckanext-geoview", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-geoview.git", "master")
+  clone("#{SOURCE_DIR}/ckanext-geoview", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-geoview.git", "og-geoview")
   pip_requirements("#{SOURCE_DIR}/ckanext-geoview/pip-requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
   pip_install("#{SOURCE_DIR}/ckanext-geoview", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
