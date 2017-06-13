@@ -72,6 +72,7 @@ node.ckan.extensions.each{ |extension|
     line "ckanext.geoview.ol_viewer.formats = wms kml geojson
 ckan.geoview.oauth = false
 ckanext.geoview.bing.key = #{GEOVIEW_BING_KEY}
+ckanext.spatial.common_map.type = bing
 # ckan.geoview.oauth.urls =
 ## Site Settings"
   end
