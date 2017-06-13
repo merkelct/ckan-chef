@@ -15,6 +15,7 @@ default[:harvester_pingi_url] = data_hash['harvester_pingi_url']
 default[:harvester_akana_portal_url] = data_hash['harvester_akana_portal_url']
 default[:haystack_api_url] = data_hash['haystack_api_url']
 default[:haystack_web_url] = data_hash['haystack_web_url']
+default[:geoview_bing_key] = data_hash['geoview_bing_key']
 
 
 default[:slackbot_token] = data_hash['slackbot_token']

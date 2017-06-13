@@ -9,5 +9,6 @@
   "slackbot_token": "",
   "slackbot_id": "",
   "haystack_api_url": "",
-  "haystack_web_url": ""
+  "haystack_web_url": "",
+  "geoview_bing_key": ""
 }

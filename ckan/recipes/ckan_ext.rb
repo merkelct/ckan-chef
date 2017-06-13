@@ -19,6 +19,7 @@ HARVESTER_PINGI_URL = node[:harvester_pingi_url]
 HARVESTER_AKANA_PORTAL_URL = node[:harvester_akana_portal_url]
 HAYSTACK_API_URL = node[:haystack_api_url]
 HAYSTACK_WEB_URL = node[:haystack_web_url]
+GEOVIEW_BING_KEY = node[:geoview_bing_key]
 
 
 node.ckan.extensions.each{ |extension|
@@ -70,6 +71,7 @@ node.ckan.extensions.each{ |extension|
     pattern '.*## Site Settings*.'
     line "ckanext.geoview.ol_viewer.formats = wms kml geojson
 ckan.geoview.oauth = false
+ckanext.geoview.bing.key = #{GEOVIEW_BING_KEY}
 # ckan.geoview.oauth.urls =
 ## Site Settings"
   end
