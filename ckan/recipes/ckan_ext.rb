@@ -203,7 +203,7 @@ ckan.slackbot_token = #{SLACKBOT_TOKEN}
     end
   elsif extension == 'docs'
     ##################### slack monsanto  #####################
-    clone("#{SOURCE_DIR}/docs", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/datacat.git", "ogsdocs")
+    clone("#{SOURCE_DIR}/docs", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/datacat.git", "docs")
   elsif extension == 'haystack'
     ##################### slack monsanto  #####################
     clone("#{SOURCE_DIR}/ckanext-haystack", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-haystack.git", "master")
