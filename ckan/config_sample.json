@@ -8,6 +8,8 @@
   "harvester_akana_portal_url": "",
   "slackbot_token": "",
   "slackbot_id": "",
+  "slack_client": "",
+  "slack_secret": "",
   "haystack_api_url": "",
   "haystack_web_url": "",
   "geoview_bing_key": ""

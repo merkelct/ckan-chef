@@ -14,6 +14,8 @@ HARVESTERID = node[:harvester_clientid]
 HARVESTERSECRET = node[:harvester_secret]
 SLACKBOT_TOKEN = node[:slackbot_token]
 SLACKBOT_ID = node[:slackbot_id]
+SLACK_CLIENT = node[:slack_client]
+SLACK_SECRET = node[:slackbot_secret]
 HARVESTER_PINGI_ENV = node[:harvester_pingi_env]
 HARVESTER_PINGI_URL = node[:harvester_pingi_url]
 HARVESTER_AKANA_PORTAL_URL = node[:harvester_akana_portal_url]
@@ -199,6 +201,8 @@ ckan.harvester.akana.portal.url = #{HARVESTER_AKANA_PORTAL_URL}
       pattern '.*## Site Settings*.'
       line "ckan.slackbot_id = #{SLACKBOT_ID}
 ckan.slackbot_token = #{SLACKBOT_TOKEN}
+ckan.slack_client = #{SLACK_CLIENT}
+ckan.slack_secret = #{SLACK_SECRET}
 ## Site Settings"
     end
   elsif extension == 'docs'
