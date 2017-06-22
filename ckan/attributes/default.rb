@@ -20,8 +20,8 @@ default[:geoview_bing_key] = data_hash['geoview_bing_key']
 
 default[:slackbot_token] = data_hash['slackbot_token']
 default[:slackbot_id] = data_hash['slackbot_id']
-default[:slack_client] = data_hash['slackbot_client']
-default[:slack_secret] = data_hash['slackbot_secret']
+default[:slack_client] = data_hash['slack_client']
+default[:slack_secret] = data_hash['slack_secret']
 
 default[:ckan][:user] = "vagrant"
 default[:ckan][:project_name] = "default"
