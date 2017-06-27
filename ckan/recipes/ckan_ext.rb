@@ -128,7 +128,7 @@ ckan.harvester.pingi.url = #{HARVESTER_PINGI_URL}
     end
   elsif extension == 'akana_harvester'
     ##################### harvester monsanto  #####################
-    clone("#{SOURCE_DIR}/ckanext-akanaharvester", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-akanaharvester.git", "master")
+    clone("#{SOURCE_DIR}/ckanext-akanaharvester", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-akanaharvester.git", "master")
     pip_install("#{SOURCE_DIR}/ckanext-akanaharvester", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
     add_to_list 'add akanaharvester to plugins list' do
@@ -167,7 +167,7 @@ ckan.harvester.akana.portal.url = #{HARVESTER_AKANA_PORTAL_URL}
     end
   elsif extension == 'yammer'
     ##################### yammer monsanto  #####################
-    clone("#{SOURCE_DIR}/ckanext-yammer", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-yammer.git", "master")
+    clone("#{SOURCE_DIR}/ckanext-yammer", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-yammer.git", "master")
     pip_install("#{SOURCE_DIR}/ckanext-yammer", node[:ckan][:user], node[:ckan][:virtual_env_dir])
     pip_requirements("#{SOURCE_DIR}/ckanext-yammer/requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 
@@ -186,7 +186,7 @@ ckan.harvester.akana.portal.url = #{HARVESTER_AKANA_PORTAL_URL}
     end
   elsif extension == 'slack'
     ##################### slack monsanto  #####################
-    clone("#{SOURCE_DIR}/ckanext-slack", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@github.com/merkelct/ckanext-slack.git", "master")
+    clone("#{SOURCE_DIR}/ckanext-slack", node[:ckan][:user], "https://#{EGIT_TOKEN}:x-oauth-basic@github.platforms.engineering/datasvcs/ckanext-slack.git", "master")
     pip_install("#{SOURCE_DIR}/ckanext-slack", node[:ckan][:user], node[:ckan][:virtual_env_dir])
     pip_requirements("#{SOURCE_DIR}/ckanext-slack/requirements.txt", node[:ckan][:user], node[:ckan][:virtual_env_dir])
 

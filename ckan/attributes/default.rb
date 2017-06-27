@@ -34,7 +34,7 @@ default[:ckan][:virtual_env_dir] = "/usr/lib/ckan/#{default[:ckan][:project_name
 default[:ckan][:config_dir] = "/etc/ckan/#{default[:ckan][:project_name]}"
 default[:ckan][:config] = "development.ini"
 
-default[:ckan][:version] = 'release-v2.5.3'
+default[:ckan][:version] = 'release-v2.5.5'
 default[:ckan][:repository][:url] = 'github.com/MonsantoCo/ckan.git'
 default[:ckan][:file_storage_dir] = "/var/lib/ckan/#{default[:ckan][:project_name]}"
 
