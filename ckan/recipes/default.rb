@@ -2,7 +2,7 @@
 include_recipe "runit"
 include_recipe "apt"
 include_recipe "git"
-include_recipe "python"
+include_recipe "poise-python"
 include_recipe "postgresql::server"
 include_recipe "postgresql::libpq"
 include_recipe "postgresql::client"

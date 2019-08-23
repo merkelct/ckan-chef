@@ -16,7 +16,7 @@ module Ckan
     end
 
     def pip_requirements(file,user,venv)
-      python_pip file do
+      python_package file do
         user user
         group user
         virtualenv venv
@@ -26,7 +26,7 @@ module Ckan
     end
 
     def pip_install(source,user,venv)
-      python_pip source do
+      python_package source do
         user user
         group user
         virtualenv venv

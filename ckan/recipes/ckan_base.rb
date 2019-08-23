@@ -17,7 +17,7 @@ GIT_TOKEN = node[:git]
 # Create user
 user node[:ckan][:user] do
   home "/home/#{node[:ckan][:user]}"
-  supports :manage_home => true
+  manage_home true
 end
 
 # Create virtualenv directory
@@ -30,10 +30,7 @@ end
 
 # Create python virtualenv
 python_virtualenv ENV['VIRTUAL_ENV'] do
-  interpreter "python2.7"
-  owner node[:ckan][:user]
   group node[:ckan][:user]
-  options "--no-site-packages"
   action :create
 end
 
@@ -48,7 +45,7 @@ end
 # Install CKAN Package
 clone("#{CKAN_DIR}", node[:ckan][:user], "https://#{GIT_TOKEN}:x-oauth-basic@#{node[:ckan][:repository][:url]}", node[:ckan][:version])
 
-python_pip CKAN_DIR do
+python_package CKAN_DIR do
   user node[:ckan][:user]
   group node[:ckan][:user]
   virtualenv ENV['VIRTUAL_ENV']
@@ -57,7 +54,7 @@ python_pip CKAN_DIR do
 end
 
 # Install CKAN's requirements
-python_pip "#{CKAN_DIR}/requirements.txt" do
+python_package "#{CKAN_DIR}/requirements.txt" do
   user node[:ckan][:user]
   group node[:ckan][:user]
   virtualenv ENV['VIRTUAL_ENV']
@@ -66,7 +63,7 @@ python_pip "#{CKAN_DIR}/requirements.txt" do
 end
 
 # Install CKAN Package req flask_debugger
-python_pip 'flask-debugtoolbar' do
+python_package 'flask-debugtoolbar' do
   user node[:ckan][:user]
   group node[:ckan][:user]
   virtualenv ENV['VIRTUAL_ENV']

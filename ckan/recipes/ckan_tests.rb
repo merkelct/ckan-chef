@@ -7,7 +7,7 @@ SOURCE_DIR = "#{ENV['VIRTUAL_ENV']}/src"
 CKAN_DIR = "#{SOURCE_DIR}/ckan"
 
 # Install dev dependencies
-python_pip "#{CKAN_DIR}/dev-requirements.txt" do
+python_package "#{CKAN_DIR}/dev-requirements.txt" do
   user node[:ckan][:user]
   group node[:ckan][:user]
   virtualenv ENV['VIRTUAL_ENV']
